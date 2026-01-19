@@ -1,6 +1,7 @@
 #pragma once
 
 #include <mc_control/fsm/Controller.h>
+#include <mc_tasks/CompliantPostureTask.h>
 
 #include "api.h"
 
@@ -11,6 +12,8 @@ struct KinovaGravityCompensationController_DLLAPI KinovaGravityCompensationContr
   bool run() override;
 
   void reset(const mc_control::ControllerResetData & reset_data) override;
+
+  std::shared_ptr<mc_tasks::CompliantPostureTask> compPostureTask;
 
 private:
   mc_rtc::Configuration config_;

@@ -1,3 +1,5 @@
 add_fsm_state_simple(KinovaGravityCompensationController_Initial)
+add_fsm_state_simple(KinovaGravityCompensationController_GravityCompensationDamped)
+add_fsm_state_simple(KinovaGravityCompensationController_LowGainsResetTarget)
 
 add_fsm_data_directory(data)

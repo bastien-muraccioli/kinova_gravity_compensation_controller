@@ -20,39 +20,31 @@ VerboseStateFactory: false
 robots:
   ground:
     module: env/ground
-# General constraints, always on
-constraints:
-- type: contact
-- type: dynamics
-  damper: [0.1, 0.01, 0.5]
-- type: compoundJoint
+
 # Collision constraint
 collisions:
 - type: collision
   useMinimal: true
-# Initial set of contacts
-contacts:
-- r1: jvrc1
-  r2: ground
-  r1Surface: LeftFoot
-  r2Surface: AllGround
-- r1: jvrc1
-  r2: ground
-  r1Surface: RightFoot
-  r2Surface: AllGround
 
-# Some options for a specific robot
-jvrc1:
-  posture:
-    stiffness: 1
-    weight: 10
-  ff:
-    stiffness: 2
-    weight: 100
 # Implement some additional text states
 states: {}
 # Transitions map
 transitions:
 - [KinovaGravityCompensationController_Initial, OK, KinovaGravityCompensationController_Initial, Strict]
+- [KinovaGravityCompensationController_Initial, LOWGainsReset, KinovaGravityCompensationController_LowGainsResetTarget, Strict]
+- [KinovaGravityCompensationController_Initial, DAMPED, KinovaGravityCompensationController_GravityCompensationDamped, Strict]
+
+- [KinovaGravityCompensationController_LowGainsResetTarget, OK, KinovaGravityCompensationController_Initial, Strict]
+- [KinovaGravityCompensationController_LowGainsResetTarget, DAMPED, KinovaGravityCompensationController_GravityCompensationDamped, Strict]
+
+- [KinovaGravityCompensationController_GravityCompensationDamped, OK, KinovaGravityCompensationController_Initial, Strict]
+- [KinovaGravityCompensationController_GravityCompensationDamped, LOWGainsReset, KinovaGravityCompensationController_LowGainsResetTarget, Strict]
 # Initial state
 init: KinovaGravityCompensationController_Initial
+
+ObserverPipelines:
+- name: Pipeline
+  observers:
+    - type: Encoder
+      config:
+        velocity: encoderVelocities
