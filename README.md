@@ -1,6 +1,6 @@
 # Kinova Gravity Compensation Controller
 
-An **[mc_rtc] FSM controller** for **gravity compensation in torque control** on the **Kinova Gen3** robot.
+An **[mc_rtc](https://jrl.cnrs.fr/mc_rtc/) FSM controller** for **gravity compensation in torque control** on the **Kinova Gen3** robot.
 
 This controller is based on the framework introduced in
 **[Demonstrating a Control Framework for Physical Human–Robot Interaction Toward Industrial Applications](https://industry-ready-phri.github.io/)**, which proposes a safe torque-control approach for pHRI using a **second-order Quadratic Program (QP)** with strict kinematic and collision constraints.
