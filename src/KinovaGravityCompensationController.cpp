@@ -4,7 +4,9 @@ KinovaGravityCompensationController::KinovaGravityCompensationController(mc_rbdy
 : mc_control::fsm::Controller(rm, dt, config, Backend::TVM)
 {
   // Initialize the constraints
-  selfCollisionConstraint->setCollisionsDampers(solver(), {1.8, 40.0});
+  m_ = 1.1;
+  lambda_ = 9.0;
+  selfCollisionConstraint->setCollisionsDampers(solver(), {m_, lambda_});
   dynamicsConstraint = mc_rtc::unique_ptr<mc_solver::DynamicsConstraint>(
       new mc_solver::DynamicsConstraint(
           robots(), 0, {0.1, 0.01, 0.0, 1.8, 70.0}, 0.9, true));
@@ -23,6 +25,19 @@ KinovaGravityCompensationController::KinovaGravityCompensationController(mc_rbdy
   datastore().make<std::string>("ControlMode", "Torque");
   datastore().make<std::string>("TorqueMode", "Custom");
   datastore().make_call("getPostureTask", [this]() -> mc_tasks::PostureTaskPtr { return postureTask; });
+
+  gui()->addElement({"Controller"}, mc_rtc::gui::NumberInput(
+                                        "m", [this]() { return m_; },
+                                        [this](double m) { m_ = m; }));
+  gui()->addElement({"Controller"},
+                    mc_rtc::gui::NumberInput(
+                        "lambda", [this]() { return lambda_; },
+                        [this](double lambda) { lambda_ = lambda; }));
+
+  gui()->addElement({"Controller"}, mc_rtc::gui::Button("SEND", [this]() {
+      selfCollisionConstraint->setCollisionsDampers(solver(), {m_, lambda_});
+      mc_rtc::log::info("Constraints updated");
+                    }));
 
   mc_rtc::log::success("KinovaGravityCompensationController init done ");
 }

@@ -41,6 +41,11 @@ q̈* = Kp (q − q_d) − Kd q̇ + Γ M⁻¹ τ_ext
   * External forces detected → low gains, compliant
   * No external forces → high stiffness, target reset to current position
 
+* **Dual Compliance**
+
+  * A compliant Cartesian task is added to control the End Effector. Thus the `q̈*` is a bit different, check the [paper](https://industry-ready-phri.github.io/) for more details.
+  * The Null Space is always compliant but the End Effector is compliant only when a force is applied on it.
+
 ---
 
 ## Dependency

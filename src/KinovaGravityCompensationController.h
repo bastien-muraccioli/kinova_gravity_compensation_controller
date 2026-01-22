@@ -17,4 +17,6 @@ struct KinovaGravityCompensationController_DLLAPI KinovaGravityCompensationContr
 
 private:
   mc_rtc::Configuration config_;
+  double m_;
+  double lambda_;
 };

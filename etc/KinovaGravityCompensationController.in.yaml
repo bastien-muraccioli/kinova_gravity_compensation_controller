@@ -33,12 +33,19 @@ transitions:
 - [KinovaGravityCompensationController_Initial, OK, KinovaGravityCompensationController_Initial, Strict]
 - [KinovaGravityCompensationController_Initial, LOWGainsReset, KinovaGravityCompensationController_LowGainsResetTarget, Strict]
 - [KinovaGravityCompensationController_Initial, DAMPED, KinovaGravityCompensationController_GravityCompensationDamped, Strict]
+- [KinovaGravityCompensationController_Initial, DUAL, KinovaGravityCompensationController_DualCompliance, Strict]
 
 - [KinovaGravityCompensationController_LowGainsResetTarget, OK, KinovaGravityCompensationController_Initial, Strict]
 - [KinovaGravityCompensationController_LowGainsResetTarget, DAMPED, KinovaGravityCompensationController_GravityCompensationDamped, Strict]
+- [KinovaGravityCompensationController_LowGainsResetTarget, DUAL, KinovaGravityCompensationController_DualCompliance, Strict]
 
 - [KinovaGravityCompensationController_GravityCompensationDamped, OK, KinovaGravityCompensationController_Initial, Strict]
 - [KinovaGravityCompensationController_GravityCompensationDamped, LOWGainsReset, KinovaGravityCompensationController_LowGainsResetTarget, Strict]
+- [KinovaGravityCompensationController_GravityCompensationDamped, DUAL, KinovaGravityCompensationController_DualCompliance, Strict]
+
+- [KinovaGravityCompensationController_DualCompliance, OK, KinovaGravityCompensationController_Initial, Strict]
+- [KinovaGravityCompensationController_DualCompliance, LOWGainsReset, KinovaGravityCompensationController_LowGainsResetTarget, Strict]
+- [KinovaGravityCompensationController_DualCompliance, DAMPED, KinovaGravityCompensationController_GravityCompensationDamped, Strict]
 # Initial state
 init: KinovaGravityCompensationController_Initial
 
